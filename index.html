@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input placeholder="alumno" id="alumno" type="text" value="" />
+
+    <input
+      type="radio"
+      name="options"
+      value="Sahumado y Simbología"
+      onchange="curso = this.value"
+    />
+    <label for="option1">Sahumado y Simbología</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Reiki Usui Nivel 1"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Reiki Usui Nivel 1</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Reiki Usui Nivel 2"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Reiki Usui Nivel 2</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Reiki Usui Nivel 3"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Reiki Usui Nivel 3</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Canalización de Seres de Luz"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Canalización de Seres de Luz</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Gemoterapia Nivel 1"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Gemoterapia Nivel 1</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Gemoterapia Nivel 2"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Gemoterapia Nivel 2</label>
+
+    <input
+      type="radio"
+      name="options"
+      value="Gemoterapia Nivel 3"
+      onchange="curso = this.value"
+    />
+    <label for="option2">Gemoterapia Nivel 3</label>
+
+    <input placeholder="fecha" id="fecha" type="text" value="" /><br />
+    <button onclick="loadImageOnCanvasAndThenWriteText()">generar</button
+    ><br /><br />
+    <canvas id="canvas" width="400" height="150"></canvas>
+    <script>
+      let curso = "pepe";
+      function loadImageOnCanvasAndThenWriteText() {
+        const alumno = document
+          .getElementById("alumno")
+          .value.toLowerCase()
+          .split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+        const fecha = document.getElementById("fecha").value;
+        const canvas = document.getElementById("canvas");
+        // Get the 2D Context from the canvas
+        let ctx = canvas.getContext("2d");
+        // Create a new Image
+        let img = new Image();
+        // Setting up a function with the code to run after the image is loaded
+        img.onload = () => {
+          // Once the image is loaded, we will get the width & height of the image
+          let loadedImageWidth = img.width;
+          let loadedImageHeight = img.height;
+          // Set the canvas to the same size as the image.
+          canvas.width = loadedImageWidth;
+          canvas.height = loadedImageHeight;
+          // Draw the image on to the canvas.
+          ctx.drawImage(img, 0, 0);
+          // Set all the properties of the text based on the input params
+          ctx.font = `110px LatoWeb`;
+          ctx.fillStyle = "black";
+          //ctx.textAlign = textStyleOptions.textAlign;
+
+          // Setting this so that the postion of the text can be set
+          // based on the x and y cord from the top right corner
+          ctx.textBaseline = "top";
+
+          let textWidth = ctx.measureText(alumno).width;
+          // Finanlly addeing the text to the image
+          ctx.fillText(alumno, canvas.width / 2 - textWidth / 2, 835);
+
+          ctx.font = `100px LatoWeb`;
+          ctx.fillStyle = "#eee";
+          textWidth = ctx.measureText(curso).width;
+          ctx.fillText(curso, canvas.width / 2 - textWidth / 2, 420);
+
+          ctx.fillStyle = "black";
+          ctx.font = `60px LatoWeb`;
+
+          ctx.fillText(fecha, 550, 1120);
+        };
+        // Now that we have set up the image "onload" handeler, we can assign
+        // an image URL to the image.
+        img.src = "diploma.png";
+      }
+    </script>
+  </body>
+</html>
